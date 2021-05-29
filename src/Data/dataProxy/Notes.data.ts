@@ -1,7 +1,8 @@
+import { Note } from '../../models/Db/note';
 import { getAllNote, geNoteByKey, addNote, deleteNote, updateNote } from '../apis/note.api';
 import { NoteContext } from '../dbcontexts/Note.contextt';
 import { EventContext } from '../dbcontexts/Request.context';
-import { Note } from '../models/Db/note';
+
 
 export const ProxyGetAllNote = (isConnected: boolean): Promise<Note[]> => {
     const dataContext = new NoteContext();
@@ -34,7 +35,7 @@ export const ProxyGetNote = (isConnected: boolean, key: string): Promise<Note> =
                 if (response.ok) {
                     return response.json()
                 } else {
-                    Promise.reject(response.statusText)
+                    return Promise.reject(response.statusText)
                 }
             })
             .then((dataRow) => {
@@ -50,15 +51,16 @@ export const ProxyGetNote = (isConnected: boolean, key: string): Promise<Note> =
 }
 
 export const ProxyAddNote = (isConnected: boolean, note: Note): Promise<any> => {
-    const dataContext = new NoteContext();
     const eventContext = new EventContext();
+    const dataContext = new NoteContext();
+
     if (isConnected) {
         return addNote(note)
             .then((response) => {
                 if (response.ok) {
                     return response.json()
                 } else {
-                    Promise.reject(response.statusText)
+                    return Promise.reject(response.statusText)
                 }
             })
             .then(() => {
@@ -66,15 +68,17 @@ export const ProxyAddNote = (isConnected: boolean, note: Note): Promise<any> => 
             })
             .catch((err) => {
                 const eventName = new Date().toDateString() + '_AddNote_' + note.name
-                return eventContext.addEvent({ EventName: eventName, promise: addNote(note) }).then(() => {
-                    return dataContext.addNote(note.id, note)
-                })
+                const promises: any[] = [];
+                promises.push(dataContext.addNote(note.id, note));
+                promises.push(eventContext.addEvent({ EventName: eventName, promise: note }));
+                return Promise.all(promises)
             })
     } else {
         const eventName = new Date().toDateString() + '_AddNote_' + note.name
-        return eventContext.addEvent({ EventName: eventName, promise: addNote(note) }).then(() => {
-            return dataContext.addNote(note.id, note)
-        })
+        const promises: any[] = [];
+        promises.push(dataContext.addNote(note.id, note));
+        promises.push(eventContext.addEvent({ EventName: eventName, promise: note }));
+        return Promise.all(promises)
     }
 }
 

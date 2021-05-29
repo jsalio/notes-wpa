@@ -1,5 +1,5 @@
-import { EventData } from "../models/Db/event-data";
-import { Note } from "../models/Db/note";
+import { EventData } from "../../models/Db/event-data";
+import { Note } from "../../models/Db/note";
 import { EntityContexts } from "./contexts";
 
 export class EventContext {

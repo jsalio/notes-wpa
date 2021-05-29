@@ -1,5 +1,6 @@
 var CACHE_NAME = 'task-manager-pwa';
-var urlsToCache = [];
+var urlsToCache = [
+];
 
 // Install service worker
 self.addEventListener('install', event => {

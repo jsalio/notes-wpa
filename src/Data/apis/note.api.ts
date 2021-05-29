@@ -1,4 +1,4 @@
-import { Note } from "../models/Db/note"
+import { Note } from "../../models/Db/note";
 
 const apiPath = 'http://localhost:3009/api/notes/'
 
@@ -21,25 +21,37 @@ export const geNoteByKey = (key: string): Promise<Response> => {
 export const addNote = (note: Note): Promise<Response> => {
     const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+            'pragma': 'no-cache',
+            'cache-control': 'no-cache'
+        },
         body: JSON.stringify(note)
     };
-    return (fetch(`${apiPath}add`, requestOptions)).then(response => response.json())
+    return (fetch(`${apiPath}add`, requestOptions))
 }
 
 export const updateNote = (key: string, note: Note): Promise<Response> => {
     const requestOptions = {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+            'pragma': 'no-cache',
+            'cache-control': 'no-cache'
+        },
         body: JSON.stringify(note)
     };
-    return (fetch(`${apiPath}/${key}/update`, requestOptions)).then(response => response.json())
+    return (fetch(`${apiPath}/${key}/update`, requestOptions))
 }
 
 export const deleteNote = (key: string): Promise<Response> => {
     const requestOptions = {
         method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+            'pragma': 'no-cache',
+            'cache-control': 'no-cache'
+        },
     };
     return (fetch(`${apiPath}remove-by-id/${key}`, requestOptions))
 }

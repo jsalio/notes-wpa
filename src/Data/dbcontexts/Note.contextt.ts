@@ -1,4 +1,5 @@
-import { Note } from "../models/Db/note";
+
+import { Note } from "../../models/Db/note";
 import { EntityContexts } from "./contexts";
 
 export class NoteContext {

@@ -1,33 +1,38 @@
-import React, { useEffect } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { EntityContexts } from './dbcontexts/contexts';
-import { NoteContext } from './dbcontexts/Note.contextt';
-import { ProxyGetAllNote } from './dataProxy/Notes.data';
+import { NoteContext } from './Data/dbcontexts/Note.contextt';
+import { ApplicationContext } from './models/context/ApplicationContexts';
+import { NoteList } from './Components/List';
+import 'antd/dist/antd.css';
+import React, { useEffect, useState } from 'react';
+import { FormNote } from './Components/NoteForm';
+import { ValidateHeartServer } from './Data/apis/heart-check.api';
 
 function App() {
+  const [online, setOnline] = useState(false);
+  let contexts = {
+    noteContext: new NoteContext(),
+    online: true
+  }
   useEffect(() => {
-    ProxyGetAllNote(true).then((dataSet) => {
-      console.log(dataSet)
-    })
-  }, [])
+    setInterval(() => {
+      console.log('Trigger')
+      ValidateHeartServer()
+        .then(() => {
+          console.log('Estas online')
+          setOnline(true)
+        })
+        .catch(() => {
+          console.log('Estas offline')
+          setOnline(false)
+        })
+    }, 1000)
+  }, [online])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ApplicationContext.Provider value={contexts}>
+      {online ? 'Online' : 'Offline'}
+      <FormNote />
+      <NoteList />
+    </ApplicationContext.Provider>
   );
 }
 

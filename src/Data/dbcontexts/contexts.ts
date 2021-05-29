@@ -1,5 +1,6 @@
 import { IDBPDatabase, openDB } from "idb";
-import { QuickNotesDb } from "../models/Db/schema";
+import { QuickNotesDb } from "../../models/Db/schema";
+
 
 export class EntityContexts {
     context: any;
