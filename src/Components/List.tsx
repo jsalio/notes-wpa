@@ -28,7 +28,7 @@ const columns = [
 ];
 
 export const NoteList: React.FC = (prop) => {
-    var { noteContext, online } = React.useContext(ApplicationContext)
+    var { online } = React.useContext(ApplicationContext)
     const [dataSet, setDataset] = useState(new Array<Note>())
     useEffect(() => {
         ProxyGetAllNote(online).then((set) => {
