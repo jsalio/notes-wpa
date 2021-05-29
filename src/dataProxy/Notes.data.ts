@@ -11,7 +11,7 @@ export const ProxyGetAllNote = (isConnected: boolean): Promise<Note[]> => {
                 if (response.ok) {
                     return response.json()
                 } else {
-                    Promise.reject(response.statusText)
+                    return Promise.reject(response.statusText)
                 }
             })
             .then((result) => {

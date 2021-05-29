@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { EntityContexts } from './dbcontexts/contexts';
+import { NoteContext } from './dbcontexts/Note.contextt';
+import { ProxyGetAllNote } from './dataProxy/Notes.data';
 
 function App() {
+  useEffect(() => {
+    ProxyGetAllNote(true).then((dataSet) => {
+      console.log(dataSet)
+    })
+  }, [])
   return (
     <div className="App">
       <header className="App-header">

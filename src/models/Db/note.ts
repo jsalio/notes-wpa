@@ -4,7 +4,7 @@ export type Note = {
     id: string,
     name: string,
     text: string,
-    Author: string,
+    author: string,
     date: string,
     transactionStatus: transactionStatus
 }

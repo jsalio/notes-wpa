@@ -1,6 +1,6 @@
 import { Note } from "../models/Db/note"
 
-const apiPath = 'http://localhost:3009/api/note/'
+const apiPath = 'http://localhost:3009/api/notes/'
 
 export const getAllNote = (): Promise<Response> => {
     const requestOptions = {
