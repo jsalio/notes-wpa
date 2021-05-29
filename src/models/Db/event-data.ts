@@ -1,4 +1,4 @@
 export type EventData = {
-    data: any,
-    apiMethod: string
+    promise: any,
+    EventName: string
 }

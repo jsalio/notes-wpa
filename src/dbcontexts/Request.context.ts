@@ -1,37 +1,38 @@
+import { EventData } from "../models/Db/event-data";
 import { Note } from "../models/Db/note";
 import { EntityContexts } from "./contexts";
 
-export class NoteContext {
+export class EventContext {
     table: string;
     context: EntityContexts;
     /**
      *
      */
     constructor() {
-        this.table = 'Notes';
+        this.table = 'Events';
         this.context = new EntityContexts()
     }
 
-    public getAllNote(): Promise<Note[]> {
+    public getAllEvents(): Promise<Note[]> {
         return this.context.getAll(this.table)
     }
 
-    public geNoteByKey(key: string): Promise<Note> {
+    public geEventByKey(key: string): Promise<Note> {
         return this.context.get(this.table, key)
     }
 
-    public addNote(key: string, note: Note): Promise<any> {
-        return this.context.set(this.table, key, note)
+    public addEvent(event: EventData): Promise<any> {
+        return this.context.set(this.table, event.EventName, event)
     }
-    public deleteNote(key: string): Promise<void> {
+    public deleteEvent(key: string): Promise<void> {
         return this.context.del(this.table, key)
     }
 
-    public cleanAllNote(): Promise<void> {
+    public cleanAllEvents(): Promise<void> {
         return this.context.clear(this.table)
     }
 
-    public getAllNoteKey(): Promise<any[]> {
+    public getAllEventsKey(): Promise<any[]> {
         return this.context.keys(this.table)
     }
 
