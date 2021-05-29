@@ -10,7 +10,7 @@ export const FormNote: React.FC = (props) => {
     const [name, setName] = useState('')
     const [author, setAuthor] = useState('')
     const [details, setDetails] = useState('')
-    var { noteContext, online } = React.useContext(ApplicationContext)
+    var { online } = React.useContext(ApplicationContext)
 
     const handlerClick = () => {
         console.log('try to save content')
