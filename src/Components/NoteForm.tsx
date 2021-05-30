@@ -25,7 +25,7 @@ export const FormNote: React.FC = (props) => {
         ProxyAddNote(online, note).then(() => {
             setName('');
             setAuthor('');
-            setDetails('')
+            setDetails('');
         })
     }
 
