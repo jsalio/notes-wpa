@@ -34,7 +34,7 @@ export const NoteList: React.FC = (prop) => {
         ProxyGetAllNote(online).then((set) => {
             setDataset(set)
         })
-    }, [dataSet, online])
+    }, [online])
     return <div>
         <Table dataSource={dataSet} columns={columns} />
     </div>

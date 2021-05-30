@@ -5,7 +5,11 @@ const apiPath = 'http://localhost:3009/api/notes/'
 export const getAllNote = (): Promise<Response> => {
     const requestOptions = {
         method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+            'pragma': 'no-cache',
+            'cache-control': 'no-cache'
+        },
     };
     return (fetch(`${apiPath}get-all`, requestOptions))
 }
@@ -13,7 +17,11 @@ export const getAllNote = (): Promise<Response> => {
 export const geNoteByKey = (key: string): Promise<Response> => {
     const requestOptions = {
         method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+            'pragma': 'no-cache',
+            'cache-control': 'no-cache'
+        },
     };
     return (fetch(`${apiPath}get-by-id/${key}`, requestOptions))
 }

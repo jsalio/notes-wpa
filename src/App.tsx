@@ -11,21 +11,17 @@ function App() {
   const [online, setOnline] = useState(false);
   let contexts = {
     noteContext: new NoteContext(),
-    online: true
+    online: online
   }
   useEffect(() => {
-    setInterval(() => {
-      console.log('Trigger')
+
+    const timer = setInterval(() => {
+      //console.log('Timer', new Date().toTimeString())
       ValidateHeartServer()
-        .then(() => {
-          console.log('Estas online')
-          setOnline(true)
-        })
-        .catch(() => {
-          console.log('Estas offline')
-          setOnline(false)
-        })
+        .then(() => setOnline(true))
+        .catch(() => setOnline(false))
     }, 1000)
+    return () => clearInterval(timer);
   }, [online])
   return (
     <ApplicationContext.Provider value={contexts}>
